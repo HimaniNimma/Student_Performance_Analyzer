@@ -63,24 +63,77 @@ Lowest Performer: {low_student} ({lowest:.2f})
             tk.Label(popup, text=f"{grade}: {count}",
                      font=("Segoe UI", 11),
                      bg="#111827", fg="white").pack()
-  
     def visualize(self, parent):
         if not self.students:
             messagebox.showerror("Error", "No student records!")
             return
+
         popup = Toplevel(parent)
         popup.title("Performance Chart")
-        names, avgs = [s.name for s in self.students], [s.average() for s in self.students]
-        fig_width = max(5, len(names) * 0.6)
-        fig, ax = plt.subplots(figsize=(fig_width, 4), dpi=100)
-        bars = ax.bar(names, avgs, color="#4DA6FF", width=0.5, edgecolor="black")
-        ax.set_title("Average Marks per Student", fontsize=12)
-        ax.set_ylabel("Marks"); ax.set_ylim(0, 100)
+        popup.geometry("950x550")
+        popup.configure(bg="white")
+
+        names = [s.name for s in self.students]
+        avgs = [s.average() for s in self.students]
+
+        fig_width = max(7, len(names) * 1.2)
+
+        fig, ax = plt.subplots(figsize=(fig_width, 5), dpi=100)
+
+        bars = ax.bar(
+            names,
+            avgs,
+            color="#4DA6FF",
+            edgecolor="#1E3A8A",
+            linewidth=1.5,
+            width=0.55
+        )
+
+        # Chart Title
+        ax.set_title(
+            "Average Marks per Student",
+            fontsize=18,
+            fontweight="bold",
+            pad=20
+        )
+
+        # Axis Labels
+        ax.set_ylabel(
+            "Marks",
+            fontsize=12,
+            fontweight="bold"
+        )
+
+        ax.set_xlabel(
+            "Students",
+            fontsize=12,
+            fontweight="bold"
+        )
+
+        # Leave space above tallest bar
+        ax.set_ylim(0, 110)
+
+        # Grid
+        ax.grid(axis="y", linestyle="--", alpha=0.4)
+
+        # Rotate names
         plt.xticks(rotation=30, ha="right")
+
+        # Value labels
         for bar, val in zip(bars, avgs):
-            ax.text(bar.get_x() + bar.get_width()/2, val + 1, f"{val:.1f}",
-                    ha="center", fontsize=9, color="black")
+            ax.text(
+                bar.get_x() + bar.get_width() / 2,
+                val + 1.5,
+                f"{val:.1f}",
+                ha="center",
+                va="bottom",
+                fontsize=10,
+                fontweight="bold"
+            )
+
         plt.tight_layout()
+
         canvas = FigureCanvasTkAgg(fig, master=popup)
-        canvas.draw(); 
-        canvas.get_tk_widget().pack(fill=tk.BOTH, expand=True)
+        canvas.draw()
+        canvas.get_tk_widget().pack(fill=tk.BOTH, expand=True)  
+        
