@@ -38,33 +38,19 @@ The project focuses on providing a clean graphical user interface while applying
 
 ### Main Window
 
-*(Add screenshot here)*
-
-```
-Screenshots/main_window.png
-```
+![Main Window](Screenshots/main_window.png)
 
 ---
 
 ### Performance Chart
 
-*(Add screenshot here)*
-
-```
-Screenshots/chart.png
-```
+![Performance Chart](Screenshots/PerformanceChart.png)
 
 ---
 
 ### Statistics Dashboard
 
-*(Add screenshot here)*
-
-```
-Screenshots/statistics.png
-```
-
----
+![Statistics Dashboard](Screenshots/Statistics.png)
 
 ## 🛠️ Technologies Used
 
